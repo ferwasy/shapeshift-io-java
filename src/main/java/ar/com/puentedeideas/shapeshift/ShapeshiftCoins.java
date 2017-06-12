@@ -4,28 +4,21 @@ import org.json.JSONObject;
 
 import com.despegar.http.client.GetMethod;
 import com.despegar.http.client.HttpClient;
-import com.despegar.http.client.HttpClientException;
-import com.despegar.http.client.HttpResponse;
 
 public class ShapeshiftCoins {
 	
-	private HttpClient httpClient;
+	private static final String URL = "https://shapeshift.io/getcoins";
+	
+	private ShapeshiftRequest shapeshiftRequest;
 
 	public ShapeshiftCoins(HttpClient httpClient) {
-		this.httpClient = httpClient;
+		this.shapeshiftRequest = new ShapeshiftRequest(httpClient);
 	}
 	
-	public JSONObject get() throws HttpClientException {
-		GetMethod getMethod = new GetMethod("https://shapeshift.io/getcoins", false);
+	public JSONObject get() throws ShapeshiftConnectionException, ShapeshiftResponseException {
+		GetMethod getMethod = new GetMethod(URL, false);
 		getMethod.addHeader("Accept", "application/json; charset=utf-8");
-		HttpResponse httpResponse = this.httpClient.execute(getMethod);
-		System.out.println(httpResponse.code());
-		System.out.println(new String(httpResponse.body()));
-		return new JSONObject(new String(httpResponse.body()));
-	}
-	
-	public static void main(String[] args) throws HttpClientException {
-		System.out.println(new ShapeshiftCoins(new HttpClient(1)).get().toString());
+		return this.shapeshiftRequest.get(getMethod);
 	}
 	
 }
