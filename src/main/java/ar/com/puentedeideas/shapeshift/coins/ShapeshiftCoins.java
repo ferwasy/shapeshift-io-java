@@ -1,13 +1,15 @@
-package ar.com.puentedeideas.shapeshift;
+package ar.com.puentedeideas.shapeshift.coins;
 
 import org.json.JSONObject;
 
 import com.despegar.http.client.GetMethod;
 import com.despegar.http.client.HttpClient;
 
+import ar.com.puentedeideas.shapeshift.ShapeshiftConnectionException;
+import ar.com.puentedeideas.shapeshift.ShapeshiftRequest;
+import ar.com.puentedeideas.shapeshift.ShapeshiftResponseException;
+
 public class ShapeshiftCoins {
-	
-	private static final String URL = "https://shapeshift.io/getcoins";
 	
 	private ShapeshiftRequest shapeshiftRequest;
 
@@ -16,7 +18,7 @@ public class ShapeshiftCoins {
 	}
 	
 	public JSONObject get() throws ShapeshiftConnectionException, ShapeshiftResponseException {
-		GetMethod getMethod = new GetMethod(URL, false);
+		GetMethod getMethod = new GetMethod(new ShapeshiftCoinsUrl().toString(), false);
 		getMethod.addHeader("Accept", "application/json; charset=utf-8");
 		return this.shapeshiftRequest.get(getMethod);
 	}

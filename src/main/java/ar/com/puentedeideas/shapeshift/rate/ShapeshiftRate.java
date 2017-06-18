@@ -1,13 +1,16 @@
-package ar.com.puentedeideas.shapeshift;
+package ar.com.puentedeideas.shapeshift.rate;
 
 import org.json.JSONObject;
 
 import com.despegar.http.client.GetMethod;
 import com.despegar.http.client.HttpClient;
 
+import ar.com.puentedeideas.shapeshift.ShapeshiftConnectionException;
+import ar.com.puentedeideas.shapeshift.ShapeshiftPair;
+import ar.com.puentedeideas.shapeshift.ShapeshiftRequest;
+import ar.com.puentedeideas.shapeshift.ShapeshiftResponseException;
+
 public class ShapeshiftRate {
-	
-	private static final String URL_BEGINNING = "https://shapeshift.io/rate/"; 
 	
 	private ShapeshiftRequest shapeshiftRequest;
 	
@@ -19,10 +22,7 @@ public class ShapeshiftRate {
 	}
 	
 	public JSONObject get() throws ShapeshiftConnectionException, ShapeshiftResponseException {
-		StringBuilder urlBuffer = new StringBuilder();
-		urlBuffer.append(URL_BEGINNING);
-		urlBuffer.append(this.shapeshiftPair);
-		GetMethod getMethod = new GetMethod(urlBuffer.toString(), false);
+		GetMethod getMethod = new GetMethod(new ShapeshiftRateUrl(this.shapeshiftPair).toString(), false);
 		return this.shapeshiftRequest.get(getMethod);
 	}
 		
