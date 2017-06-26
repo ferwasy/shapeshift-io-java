@@ -11,18 +11,17 @@ import ar.com.puentedeideas.shapeshift.ShapeshiftResponseException;
 
 public class ShapeshiftDepositStatus {
 	
-	private ShapeshiftRequest shapeshiftRequest;
+	private ShapeshiftRequest request;
 	
-	private String address;
+	private ShapeshiftDepositStatusUrl url;
 	
 	public ShapeshiftDepositStatus(HttpClient httpClient, String address) {
-		this.shapeshiftRequest = new ShapeshiftRequest(httpClient);
-		this.address = address;
+		this.request = new ShapeshiftRequest(httpClient);
+		this.url = new ShapeshiftDepositStatusUrl(address);
 	}
 	
 	public JSONObject get() throws ShapeshiftConnectionException, ShapeshiftResponseException {
-		GetMethod getMethod = new GetMethod(new ShapeshiftDepositStatusUrl(this.address).toString(), false);
-		return this.shapeshiftRequest.get(getMethod);
+		return this.request.get(new GetMethod(this.url.toString(), false));
 	}
 		
 }
