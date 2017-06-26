@@ -11,15 +11,18 @@ import ar.com.puentedeideas.shapeshift.ShapeshiftResponseException;
 
 public class ShapeshiftMarketInfo {
 	
-	private ShapeshiftRequest shapeshiftRequest;
+	private ShapeshiftRequest request;
+	
+	private ShapeshiftMarketInfoUrl url;
 	
 	public ShapeshiftMarketInfo(HttpClient httpClient) {
-		this.shapeshiftRequest = new ShapeshiftRequest(httpClient);
+		this.request = new ShapeshiftRequest(httpClient);
+		this.url = new ShapeshiftMarketInfoUrl();
 	}
 	
 	public JSONObject get() throws ShapeshiftConnectionException, ShapeshiftResponseException {
-		GetMethod getMethod = new GetMethod(new ShapeshiftMarketInfoUrl().toString(), false);
-		return this.shapeshiftRequest.get(getMethod);
+		GetMethod getMethod = new GetMethod(this.url.toString(), false);
+		return this.request.get(getMethod);
 	}
 		
 }
