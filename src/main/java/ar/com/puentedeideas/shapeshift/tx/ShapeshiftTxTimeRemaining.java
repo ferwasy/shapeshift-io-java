@@ -11,18 +11,17 @@ import ar.com.puentedeideas.shapeshift.ShapeshiftResponseException;
 
 public class ShapeshiftTxTimeRemaining {
 	
-	private ShapeshiftRequest shapeshiftRequest;
+	private ShapeshiftRequest request;
 	
-	private String address;
+	private ShapeshiftTxTimeRemainingUrl url;
 	
 	public ShapeshiftTxTimeRemaining(HttpClient httpClient, String address) {
-		this.shapeshiftRequest = new ShapeshiftRequest(httpClient);
-		this.address = address;
+		this.request = new ShapeshiftRequest(httpClient);
+		this.url = new ShapeshiftTxTimeRemainingUrl(address);
 	}
 	
 	public JSONObject get() throws ShapeshiftConnectionException, ShapeshiftResponseException {
-		GetMethod getMethod = new GetMethod(new ShapeshiftTxTimeRemainingUrl(this.address).toString(), false);
-		return this.shapeshiftRequest.get(getMethod);
+		return this.request.get(new GetMethod(this.url.toString(), false));
 	}
 		
 }
