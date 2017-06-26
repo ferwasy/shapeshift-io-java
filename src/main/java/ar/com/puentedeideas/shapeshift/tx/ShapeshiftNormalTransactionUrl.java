@@ -2,9 +2,9 @@ package ar.com.puentedeideas.shapeshift.tx;
 
 import ar.com.puentedeideas.shapeshift.ShapeshiftUrl;
 
-public class ShapeshiftNormalTransactionUrl extends ShapeshiftUrl {
+final class ShapeshiftNormalTransactionUrl extends ShapeshiftUrl {
 
-	public ShapeshiftNormalTransactionUrl() {
+	ShapeshiftNormalTransactionUrl() {
 		super(new StringBuilder().append("/shift").toString());
 	}
 

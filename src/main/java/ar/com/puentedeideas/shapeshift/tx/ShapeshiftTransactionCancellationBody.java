@@ -2,17 +2,12 @@ package ar.com.puentedeideas.shapeshift.tx;
 
 import org.json.JSONObject;
 
-public class ShapeshiftTransactionCancellationBody {
-	
-	private JSONObject json;
+import ar.com.puentedeideas.shapeshift.ShapeshiftPostRequestBody;
 
-	public ShapeshiftTransactionCancellationBody(String address) {
-		this.json = new JSONObject();
-		this.json.put("address", address);
-	}
+final class ShapeshiftTransactionCancellationBody extends ShapeshiftPostRequestBody {
 	
-	public String toString() {
-		return this.json.toString();
+	ShapeshiftTransactionCancellationBody(String address) {
+		super(new JSONObject().put("address", address));
 	}
 	
 }

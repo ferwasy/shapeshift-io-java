@@ -3,20 +3,13 @@ package ar.com.puentedeideas.shapeshift.tx;
 import org.json.JSONObject;
 
 import ar.com.puentedeideas.shapeshift.ShapeshiftPair;
+import ar.com.puentedeideas.shapeshift.ShapeshiftPostRequestBody;
 
-public class ShapeshiftNormalTransactionBody {
-	
-	private JSONObject json;
+final class ShapeshiftNormalTransactionBody extends ShapeshiftPostRequestBody {
 
-	public ShapeshiftNormalTransactionBody(String withdrawal, ShapeshiftPair shapeshiftPair, String returnAddress) {
-		this.json = new JSONObject();
-		this.json.put("withdrawal", withdrawal);
-		this.json.put("pair", shapeshiftPair.toString());
-		this.json.put("returnAddress", returnAddress);
+	ShapeshiftNormalTransactionBody(String withdrawal, ShapeshiftPair shapeshiftPair, String returnAddress) {
+		super(new JSONObject().put("withdrawal", withdrawal).put("pair", shapeshiftPair.toString()).put("returnAddress",
+				returnAddress));
 	}
-	
-	public String toString() {
-		return this.json.toString();
-	}
-	
+
 }
