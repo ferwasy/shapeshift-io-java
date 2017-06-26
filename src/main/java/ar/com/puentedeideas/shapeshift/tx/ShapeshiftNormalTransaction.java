@@ -15,25 +15,17 @@ public class ShapeshiftNormalTransaction {
 
 	private ShapeshiftRequest shapeshiftRequest;
 
-	private String withdrawal;
-
-	private ShapeshiftPair shapeshiftPair;
-
-	private String returnAddress;
+	private ShapeshiftNormalTransactionBody body;
 
 	public ShapeshiftNormalTransaction(HttpClient httpClient, String withdrawal, ShapeshiftPair shapeshiftPair,
 			String returnAddress) {
 		this.shapeshiftRequest = new ShapeshiftRequest(httpClient);
-		this.withdrawal = withdrawal;
-		this.shapeshiftPair = shapeshiftPair;
-		this.returnAddress = returnAddress;
+		this.body = new ShapeshiftNormalTransactionBody(withdrawal, shapeshiftPair, returnAddress);
 	}
 
 	public JSONObject get(HttpMethod httpMethod) throws ShapeshiftConnectionException, ShapeshiftResponseException {
-		return this.shapeshiftRequest.get(new PostMethod(new ShapeshiftNormalTransactionUrl().toString(),
-				new ShapeshiftNormalTransactionBody(this.withdrawal, this.shapeshiftPair, this.returnAddress)
-						.toString(),
-				false));
+		return this.shapeshiftRequest
+				.get(new PostMethod(new ShapeshiftNormalTransactionUrl().toString(), this.body.toString(), false));
 	}
 
 }
