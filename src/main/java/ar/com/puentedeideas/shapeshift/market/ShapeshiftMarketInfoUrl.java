@@ -2,9 +2,9 @@ package ar.com.puentedeideas.shapeshift.market;
 
 import ar.com.puentedeideas.shapeshift.ShapeshiftUrl;
 
-public class ShapeshiftMarketInfoUrl extends ShapeshiftUrl {
+final class ShapeshiftMarketInfoUrl extends ShapeshiftUrl {
 
-	public ShapeshiftMarketInfoUrl() {
+	ShapeshiftMarketInfoUrl() {
 		super("/marketinfo");
 	}
 

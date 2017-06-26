@@ -1,28 +1,13 @@
 package ar.com.puentedeideas.shapeshift.market;
 
-import org.json.JSONObject;
-
-import com.despegar.http.client.GetMethod;
 import com.despegar.http.client.HttpClient;
 
-import ar.com.puentedeideas.shapeshift.ShapeshiftConnectionException;
-import ar.com.puentedeideas.shapeshift.ShapeshiftRequest;
-import ar.com.puentedeideas.shapeshift.ShapeshiftResponseException;
+import ar.com.puentedeideas.shapeshift.ShapeshiftGetRequest;
 
-public class ShapeshiftMarketInfo {
-	
-	private ShapeshiftRequest request;
-	
-	private ShapeshiftMarketInfoUrl url;
+public final class ShapeshiftMarketInfo extends ShapeshiftGetRequest {
 	
 	public ShapeshiftMarketInfo(HttpClient httpClient) {
-		this.request = new ShapeshiftRequest(httpClient);
-		this.url = new ShapeshiftMarketInfoUrl();
-	}
-	
-	public JSONObject get() throws ShapeshiftConnectionException, ShapeshiftResponseException {
-		GetMethod getMethod = new GetMethod(this.url.toString(), false);
-		return this.request.get(getMethod);
+		super(httpClient, new ShapeshiftMarketInfoUrl());
 	}
 		
 }

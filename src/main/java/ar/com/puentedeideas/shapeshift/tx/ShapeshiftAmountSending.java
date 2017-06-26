@@ -27,7 +27,9 @@ public class ShapeshiftAmountSending {
 	}
 
 	public JSONObject get(HttpMethod httpMethod) throws ShapeshiftConnectionException, ShapeshiftResponseException {
-		return this.request.get(new PostMethod(this.url.toString(), this.body.toString(), false));
+		PostMethod post = new PostMethod(this.url.toString(), this.body.toString(), false);
+		post.addHeader("Content-Type", "application/json");
+		return this.request.get(post);
 	}
 
 }

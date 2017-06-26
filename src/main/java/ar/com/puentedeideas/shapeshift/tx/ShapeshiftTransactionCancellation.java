@@ -25,7 +25,8 @@ public class ShapeshiftTransactionCancellation {
 	}
 
 	public JSONObject get(HttpMethod httpMethod) throws ShapeshiftConnectionException, ShapeshiftResponseException {
-		return this.request.get(new PostMethod(this.url.toString(), this.body.toString(), false));
+		PostMethod post = new PostMethod(this.url.toString(), this.body.toString(), false);
+		return this.request.get(post);
 	}
 
 }
