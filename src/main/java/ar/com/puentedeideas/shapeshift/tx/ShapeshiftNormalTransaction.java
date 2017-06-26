@@ -13,19 +13,21 @@ import ar.com.puentedeideas.shapeshift.ShapeshiftResponseException;
 
 public class ShapeshiftNormalTransaction {
 
-	private ShapeshiftRequest shapeshiftRequest;
+	private ShapeshiftRequest request;
+
+	private ShapeshiftNormalTransactionUrl url;
 
 	private ShapeshiftNormalTransactionBody body;
 
 	public ShapeshiftNormalTransaction(HttpClient httpClient, String withdrawal, ShapeshiftPair shapeshiftPair,
 			String returnAddress) {
-		this.shapeshiftRequest = new ShapeshiftRequest(httpClient);
+		this.request = new ShapeshiftRequest(httpClient);
+		this.url = new ShapeshiftNormalTransactionUrl();
 		this.body = new ShapeshiftNormalTransactionBody(withdrawal, shapeshiftPair, returnAddress);
 	}
 
 	public JSONObject get(HttpMethod httpMethod) throws ShapeshiftConnectionException, ShapeshiftResponseException {
-		return this.shapeshiftRequest
-				.get(new PostMethod(new ShapeshiftNormalTransactionUrl().toString(), this.body.toString(), false));
+		return this.request.get(new PostMethod(this.url.toString(), this.body.toString(), false));
 	}
 
 }
