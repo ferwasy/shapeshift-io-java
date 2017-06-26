@@ -11,21 +11,17 @@ import ar.com.puentedeideas.shapeshift.ShapeshiftResponseException;
 
 public class ShapeshiftAddressValidation {
 	
-	private ShapeshiftRequest shapeshiftRequest;
+	private ShapeshiftRequest request;
 	
-	private String address;
-	
-	private String coinSymbol;
+	private ShapeshiftAddressValidationUrl url;
 
 	public ShapeshiftAddressValidation(HttpClient httpClient, String address, String coinSymbol) {
-		this.shapeshiftRequest = new ShapeshiftRequest(httpClient);
-		this.address = address;
-		this.coinSymbol = coinSymbol;
+		this.request = new ShapeshiftRequest(httpClient);
+		this.url = new ShapeshiftAddressValidationUrl(address, coinSymbol);
 	}
 	
 	public JSONObject get() throws ShapeshiftConnectionException, ShapeshiftResponseException {
-		GetMethod getMethod = new GetMethod(new ShapeshiftAddressValidationUrl(this.address, this.coinSymbol).toString(), false);
-		return this.shapeshiftRequest.get(getMethod);
+		return this.request.get(new GetMethod(this.url.toString(), false));
 	}
 		
 }
